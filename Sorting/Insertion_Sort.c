@@ -11,20 +11,21 @@ void main()
     printf("Given Elements are:");
     for (int i = 0; i < n; i++)
         printf("%d ", a[i]);
-
-    int i, j, key;
+  
+    int i, j, min;
     for (i = 1; i < n; i++)
     {
-        key = a[i];
+        min = a[i];
         j = i - 1;
-        while (j >= 0 && a[j] > key)
+        while (j >= 0 && a[j] > min)
         {
             a[j + 1] = a[j];
             j--;
         }
-        a[j + 1] = key;
+        a[j + 1] = min;
     }
-        printf("\nSorted Array is:");
+
+    printf("\nSorted Array is:");
         for (int i = 0; i < n; i++)
             printf("%d ", a[i]);
 }
