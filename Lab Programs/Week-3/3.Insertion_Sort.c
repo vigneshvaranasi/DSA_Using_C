@@ -13,7 +13,7 @@ int main()
         printf("%d ", a[i]);
 
     int i,j,min;
-    for(i=1;i<n;i++)
+    for(int i=1;i<n;i++)
     {
         min=a[i];
         j=i-1;
@@ -22,9 +22,8 @@ int main()
             a[j+1]=a[j];
             j--;
         }
-        a[j+1]=min;        
+        a[j+1]=min;
     }
-    
        
     printf("\nThe Sorted Array is : ");
     for (int i = 0; i < n; i++)
