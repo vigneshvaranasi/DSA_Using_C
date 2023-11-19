@@ -35,7 +35,7 @@ void display()
     }
     while (ptr != 0)
     {
-        printf("%d", ptr->data);
+        printf("%d\t", ptr->data);
         ptr = ptr->next;
     }
 }
@@ -117,6 +117,7 @@ void insertbeforenode(int element, int item)
         printf("Node with data %d not found in the Linked list\n", item);
     }
 }
+/* Should Change */
 void insertatposition(int element,int position)
 {
     if(position==1)
@@ -178,6 +179,7 @@ void deleteafternode(int item)
     }
     printf("Node with data %d not found in the Linked list\n", item);
 }
+/* Should Change */
 void deletebeforenode(int item)
 {
     ptr=head;

@@ -4,7 +4,6 @@ struct node
 {
     int data;
     struct node *next;
-    struct node *prev;
 };
 struct node *head;
 struct node *newnode, *temp;
@@ -14,17 +13,15 @@ void read(int n)
 {
     newnode = (struct node *)malloc(sizeof(struct node));
     newnode->data = n;
-    newnode->next = 0;
+    newnode->next = head;
     if (head == 0)
     {
         head = newnode;
-        newnode->prev=0;
         temp = newnode;
     }
     else
     {
         temp->next = newnode;
-        newnode->prev=temp;
         temp = newnode;
     }
 }
@@ -36,11 +33,12 @@ void display()
         printf("Linked List is Empty.");
         exit(0);
     }
-    while (ptr != 0)
+    do
     {
         printf("%d\t", ptr->data);
         ptr = ptr->next;
     }
+    while (ptr!= head);
 }
 void search(int element)
 {
@@ -48,10 +46,10 @@ void search(int element)
     int pos = 1;
     if (head == 0)
     {
-        printf("LInked List is Empty.");
+        printf("Linked List is Empty.");
         exit(0);
     }
-    while (ptr != 0)
+    do
     {
         if (element == ptr->data)
         {
@@ -61,13 +59,13 @@ void search(int element)
         ptr = ptr->next;
         pos = pos + 1;
     }
+    while (ptr != head);
     printf("Element Not found in the Linked list");
 }
 void insertfirst(int element)
 {
     ptr = head;
     newnode = (struct node *)malloc(sizeof(struct node));
-    newnode->prev = 0;
     newnode->data = element;
     newnode->next = head;
     head = newnode;
@@ -82,7 +80,6 @@ void insertend(int element)
     {
         ptr = ptr->next;
     }
-    newnode->prev=ptr;
     ptr->next = newnode;
 }
 void insertafternode(int element, int item)
@@ -95,8 +92,6 @@ void insertafternode(int element, int item)
         if (ptr->data == item)
         {
             newnode->next = ptr->next;
-            ptr->next->prev=newnode;
-            newnode->prev=ptr;
             ptr->next = newnode;
         }
         ptr = ptr->next;
@@ -116,9 +111,7 @@ void insertbeforenode(int element, int item)
                 newnode = (struct node*)malloc(sizeof(struct node));
                 newnode->data = element;
                 newnode->next = ptr->next;
-                ptr->next->prev=newnode;
                 ptr->next = newnode;
-                newnode->prev=ptr;
                 return;
             }
             ptr = ptr->next;
@@ -149,22 +142,23 @@ void deletefirst()
 {
     ptr=head;
     head=ptr->next;
-    head->prev=0;
     printf("The Deleted Element is:%d",ptr->data);
     free(ptr);
 }
 void deleteend()
 {
     ptr=head;
+    struct node *before;
     if(head->next==0)   
         deletefirst();
     else
     {
         while(ptr->next!=NULL)
         {
+            before=ptr;
             ptr=ptr->next;
         }
-        ptr->prev->next=0;
+        before->next=0;
         printf("The Deleted Element is:%d",ptr->data);
         free(ptr);
     }
@@ -179,7 +173,6 @@ void deleteafternode(int item)
         {
             temp=ptr->next;
             ptr->next=temp->next;
-            temp->next->prev=ptr;
             printf("The Deleted Element is:%d",temp->data);
             free(temp);
             return;
@@ -188,7 +181,6 @@ void deleteafternode(int item)
     }
     printf("Node with data %d not found in the Linked list\n", item);
 }
-/* Should Change */
 void deletebeforenode(int item)
 {
     ptr=head;
@@ -312,6 +304,6 @@ int main()
 
 /* TO DO */
 
-/* Delete before Node */
 /* Insert at a position */
-/* Delete at a position */
+
+/* Should DO all Delete Operations */
