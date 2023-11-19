@@ -4,6 +4,7 @@ struct node
 {
     int data;
     struct node *next;
+    struct node *prev;
 };
 struct node *head;
 struct node *newnode, *temp;
@@ -17,11 +18,13 @@ void read(int n)
     if (head == 0)
     {
         head = newnode;
+        newnode->prev=0;
         temp = newnode;
     }
     else
     {
         temp->next = newnode;
+        newnode->prev=temp;
         temp = newnode;
     }
 }
@@ -64,6 +67,7 @@ void insertfirst(int element)
 {
     ptr = head;
     newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->prev = 0;
     newnode->data = element;
     newnode->next = head;
     head = newnode;
@@ -78,6 +82,7 @@ void insertend(int element)
     {
         ptr = ptr->next;
     }
+    newnode->prev=ptr;
     ptr->next = newnode;
 }
 void insertafternode(int element, int item)
@@ -90,6 +95,8 @@ void insertafternode(int element, int item)
         if (ptr->data == item)
         {
             newnode->next = ptr->next;
+            ptr->next->prev=newnode;
+            newnode->prev=ptr;
             ptr->next = newnode;
         }
         ptr = ptr->next;
@@ -109,7 +116,9 @@ void insertbeforenode(int element, int item)
                 newnode = (struct node*)malloc(sizeof(struct node));
                 newnode->data = element;
                 newnode->next = ptr->next;
+                ptr->next->prev=newnode;
                 ptr->next = newnode;
+                newnode->prev=ptr;
                 return;
             }
             ptr = ptr->next;
@@ -139,23 +148,22 @@ void deletefirst()
 {
     ptr=head;
     head=ptr->next;
+    head->prev=0;
     printf("The Deleted Element is:%d",ptr->data);
     free(ptr);
 }
 void deleteend()
 {
     ptr=head;
-    struct node *before;
     if(head->next==0)   
         deletefirst();
     else
     {
         while(ptr->next!=NULL)
         {
-            before=ptr;
             ptr=ptr->next;
         }
-        before->next=0;
+        ptr->prev->next=0;
         printf("The Deleted Element is:%d",ptr->data);
         free(ptr);
     }
@@ -170,6 +178,7 @@ void deleteafternode(int item)
         {
             temp=ptr->next;
             ptr->next=temp->next;
+            temp->next->prev=ptr;
             printf("The Deleted Element is:%d",temp->data);
             free(temp);
             return;
