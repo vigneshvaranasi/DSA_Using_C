@@ -153,14 +153,15 @@ void deleteend()
         deletefirst();
     else
     {
-        while(ptr->next!=NULL)
+        do
         {
             before=ptr;
             ptr=ptr->next;
         }
-        before->next=0;
+        while(ptr->next!=head);
         printf("The Deleted Element is:%d",ptr->data);
         free(ptr);
+        before->next=head;
     }
 }
 
@@ -306,4 +307,4 @@ int main()
 
 /* Insert at a position */
 
-/* Should DO all Delete Operations */
+/* Should DO all Delete Operations  except delete at end*/
