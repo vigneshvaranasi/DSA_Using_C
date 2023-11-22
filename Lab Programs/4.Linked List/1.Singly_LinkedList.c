@@ -189,14 +189,20 @@ void deletebeforenode(int item)
         printf("Deleting is not Possible.");
     else
     {
-        while(ptr->next!=0)
+        while(ptr->next!=0 && ptr->next->next!=0)
         {
-            if(ptr->next->data==item)
+            if(ptr->next->next->data==item)
             {
-                
+                temp=ptr->next;
+                printf("The Deleted Element is:%d",temp->data);
+                ptr->next=temp->next;
+                free(temp);
+                return;
             }
             ptr=ptr->next;
         }
+        printf("Node with data %d not found in the Linked list\n", item);
+
     }
 }
 int main()
@@ -303,6 +309,5 @@ int main()
 
 /* TO DO */
 
-/* Delete before Node */
 /* Insert at a position */
 /* Delete at a position */
