@@ -130,7 +130,7 @@ void insertatposition(int element,int position)
         ptr = head;
         while(ptr!=0)
         {
-
+            
         }
     }
 }
