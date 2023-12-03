@@ -1,103 +1,103 @@
 #include <stdio.h>
-#include <stdlib.h>
-
-#define MAX_SIZE 100
-
-// Queue structure
-struct Queue {
-    int items[MAX_SIZE];
-    int front;
-    int rear;
+#define size 10
+int queue[size], visited[size];
+int front = -1, rear = -1;
+struct Graph
+{
+    int adjmatrix[size][size];
 };
-
-// Function to initialize a queue
-void initializeQueue(struct Queue* q) {
-    q->front = -1;
-    q->rear = -1;
-}
-
-// Function to check if the queue is empty
-int isEmpty(struct Queue* q) {
-    return q->front == -1;
-}
-
-// Function to add an element to the queue
-void enqueue(struct Queue* q, int value) {
-    if (q->rear == MAX_SIZE - 1) {
-        printf("Queue is full!\n");
-        return;
-    }
-    if (q->front == -1) {
-        q->front = 0;
-    }
-    q->rear++;
-    q->items[q->rear] = value;
-}
-
-// Function to remove an element from the queue
-int dequeue(struct Queue* q) {
-    int value;
-    if (isEmpty(q)) {
-        printf("Queue is empty!\n");
-        return -1;
-    } else {
-        value = q->items[q->front];
-        q->front++;
-        if (q->front > q->rear) {
-            q->front = q->rear = -1;
-        }
-        return value;
+void initGraph(struct Graph *graph, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            graph->adjmatrix[i][j] = 0;
     }
 }
+void addEdge(struct Graph *graph, int src, int dest, int n)
+{
+    if (src >= 0 && src < n && dest >= 0 && dest < n)
+    {
+        graph->adjmatrix[src][dest] = 1;
+        graph->adjmatrix[dest][src] = 1;
+    }
+}
+void printGraph(struct Graph *graph, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            printf("%d ", graph->adjmatrix[i][j]);
+        printf("\n");
+    }
+}
+int isempty()
+{
+    if (front == -1)
+        return 1;
+    else
+        return 0;
+}
+void enqueue(int data)
+{
+    if (front == -1)
+        front = rear = 0;
+    else
+        rear++;
+    queue[rear] = data;
+}
+int dequeue()
+{
+    int x = queue[front];
+    if (front == rear)
+        front = rear = -1;
+    else
+        front++;
+    return x;
+}
 
-// Function to perform BFS on a graph
-void BFS(int graph[MAX_SIZE][MAX_SIZE], int vertices, int startVertex) {
-    struct Queue q;
-    initializeQueue(&q);
-
-    int visited[MAX_SIZE] = {0};
-    printf("BFS traversal starting from vertex %d: ", startVertex);
-
-    // Enqueue the starting vertex
-    enqueue(&q, startVertex);
-    visited[startVertex] = 1;
-
-    while (!isEmpty(&q)) {
-        // Dequeue a vertex from the queue and print it
-        int currentVertex = dequeue(&q);
-        printf("%d ", currentVertex);
-
-        // Explore adjacent vertices
-        for (int i = 0; i < vertices; i++) {
-            if (graph[currentVertex][i] == 1 && !visited[i]) {
-                // Enqueue the adjacent vertex if not visited
-                enqueue(&q, i);
-                visited[i] = 1;
+void BFS(struct Graph *graph, int totalvertices, int start)
+{
+    enqueue(start);
+    visited[start]=1;
+    while(!isempty())
+    {
+        start=dequeue();
+        printf("%d ",start);
+        for(int i=0;i<totalvertices;i++)
+        {
+            if(graph->adjmatrix[start][i]==1 && visited[i]!=1)
+            {
+                enqueue(i);
+                visited[i]=1;
             }
         }
     }
-    printf("\n");
 }
-
-int main() {
-    int vertices, startVertex;
-    printf("Enter the number of vertices: ");
-    scanf("%d", &vertices);
-
-    int graph[MAX_SIZE][MAX_SIZE];
-    printf("Enter the adjacency matrix:\n");
-
-    // Input the adjacency matrix
-    for (int i = 0; i < vertices; i++) {
-        for (int j = 0; j < vertices; j++) {
-            scanf("%d", &graph[i][j]);
-        }
+int main()
+{
+    struct Graph graph;
+    int totalvertices, edges, start;
+    printf("Enter Number of Vertices:");
+    scanf("%d", &totalvertices);
+    for (int i = 0; i < totalvertices; i++)
+    {
+        queue[i] = 0;
+        visited[i] = 0;
     }
-
-    printf("Enter the starting vertex: ");
-    scanf("%d", &startVertex);
-
-    BFS(graph, vertices, startVertex);
-
-    return 0;
+    initGraph(&graph, totalvertices);
+    printf("Enter Number of edges:");
+    scanf("%d", &edges);
+    for (int i = 1; i <= edges; i++)
+    {
+        int src, dest;
+        printf("Enter edge %d (source destination): ", i);
+        scanf("%d %d", &src, &dest);
+        addEdge(&graph, src, dest, totalvertices);
+    }
+    printGraph(&graph, totalvertices);
+    printf("Enter The starting Vertex:");
+    scanf("%d", &start);
+    printf("BFS Traversal:");
+    BFS(&graph, totalvertices, start);
 }
