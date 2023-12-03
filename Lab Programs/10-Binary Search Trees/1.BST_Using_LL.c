@@ -64,7 +64,7 @@ struct TreeNode *removeNode(struct TreeNode *root, int data)
 {
     if (root == NULL)
         return NULL;
-    if (data < root->data)
+    else if (data < root->data)
         root->left = removeNode(root->left, data);
     else if (data > root->data)
         root->right = removeNode(root->right, data);

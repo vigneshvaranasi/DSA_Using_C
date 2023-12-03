@@ -70,6 +70,7 @@ void insertfirst(int element)
     newnode->prev = 0;
     newnode->data = element;
     newnode->next = head;
+    head->prev=newnode;
     head = newnode;
 }
 void insertend(int element)

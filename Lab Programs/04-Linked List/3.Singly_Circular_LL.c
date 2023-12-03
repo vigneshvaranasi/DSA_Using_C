@@ -68,6 +68,11 @@ void insertfirst(int element)
     newnode = (struct node *)malloc(sizeof(struct node));
     newnode->data = element;
     newnode->next = head;
+    while(ptr->next!=head)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=newnode;
     head = newnode;
 }
 void insertend(int element)
