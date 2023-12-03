@@ -1,12 +1,10 @@
 #include<stdio.h>
 int fact(int n)
 {
-    int ans;
     if(n==1 || n==0)
-        ans=1;
+        return 1;
     else
-        ans=n*fact(n-1);
-    return ans;
+        return n*fact(n-1);
 }
 int main()
 {
