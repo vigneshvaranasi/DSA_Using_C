@@ -25,7 +25,7 @@ int main()
     }
     
     int k;
-    printf("Enter vvalue to find kth samllest element:");
+    printf("Enter value to find kth samllest element:");
     scanf("%d",&k);
     printf("The kth Smallest element is:");
     printf("%d ", a[k-1]);
