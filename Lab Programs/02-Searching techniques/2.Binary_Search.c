@@ -16,7 +16,7 @@ int main()
     scanf("%d",&key);
     
     int low=0;
-    int high=n;
+    int high=n-1;
     int mid;
     while(low<high)
     {
