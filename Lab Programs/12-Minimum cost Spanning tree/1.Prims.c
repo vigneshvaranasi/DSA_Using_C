@@ -46,14 +46,12 @@ void printGraph(struct Graph *graph)
 void primMST(struct Graph *graph)
 {
     int key[MAX]; // Key values used to pick minimum weight edge in cut
-
     for (int i = 0; i < graph->numVertices; i++)
     {
         key[i] = INT_MAX;
         parent[i] = -1;
     }
     key[0] = 0; // Make key 0 so that this vertex is picked as the first vertex
-
     for (int count = 0; count < graph->numVertices - 1; count++)
     {
         int u = -1;
@@ -64,9 +62,7 @@ void primMST(struct Graph *graph)
                 u = v;
             }
         }
-
         key[u] = -1; // Mark vertex u as processed
-
         for (int v = 0; v < graph->numVertices; v++)
         {
             if (graph->adjMatrix[u][v] && key[v] != -1 && graph->adjMatrix[u][v] < key[v])
