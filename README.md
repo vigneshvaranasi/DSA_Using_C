@@ -2,7 +2,58 @@
 
 Welcome to the DSA using C repository! 🌐
 
-This repository serves as your guide to mastering Data Structures and Algorithms using the C programming language. Organized by topics, you'll find a curated collection of C code examples, explanations, and resources covering a wide range of DSA concepts.
+## Table of Contents
+
+1. [Recursion](#recursion)
+2. [Sorting and Searching](#sorting-and-searching)
+3. [Linked Lists](#linked-lists)
+4. [Stacks](#stacks)
+5. [Queues](#queues)
+6. [Trees](#trees)
+7. [Graphs](#graphs)
+
+## Recursion
+
+- Factorial
+- Towers of Hanoi
+- Fibonacci
+- Binary Search
+
+## Searching and Sorting
+
+- Searching: Linear and Binary search algorithms.
+- Sorting: Bubble, Insertion, Selection, Merge, Quick sort algorithms.
+
+## Linked Lists
+
+- Single linked list
+- Double linked list
+- Circular linked list
+- Operations on linked lists.
+
+## Stacks
+
+- Definition
+- Operations: array implementation, linked list implementation
+- Applications.
+
+## Queues
+
+- Definition
+- Operations: array implementation, linked list implementation
+- Applications
+- Circular Queue.
+
+## Trees
+
+- Binary Tree Traversals: In-order, Preorder, Postorder
+- Binary Search Trees: Searching BST, Insert into BST, Delete from BST, Height of a BST.
+
+## Graphs
+
+- BFS, DFS
+- Minimum Spanning Tree : Prim’s and Kruskal’s MST.
+
 
 ## Key Features
 
