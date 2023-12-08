@@ -2,6 +2,9 @@
 
 Welcome to the DSA using C repository! 🌐
 
+This repository is your comprehensive guide to mastering Data Structures and Algorithms using the C programming language. Dive into a well-organized collection of C code, meticulously arranged by topics, covering fundamental and advanced concepts in DSA.
+
+
 ## Table of Contents
 
 1. [Recursion](#recursion)
