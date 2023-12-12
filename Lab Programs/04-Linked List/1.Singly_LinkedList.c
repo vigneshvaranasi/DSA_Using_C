@@ -106,7 +106,7 @@ void insertbeforenode(int element, int item)
         {
             if (ptr->next->data == item)
             {
-                newnode = (struct node*)malloc(sizeof(struct node));
+                newnode = (struct node *)malloc(sizeof(struct node));
                 newnode->data = element;
                 newnode->next = ptr->next;
                 ptr->next = newnode;
@@ -117,97 +117,104 @@ void insertbeforenode(int element, int item)
         printf("Node with data %d not found in the Linked list\n", item);
     }
 }
-/* Should Change */
-void insertatposition(int element,int position)
+void insertatposition(int element, int position)
 {
-    if(position==1)
+    struct node *before=NULL;
+    if (position == 1)
     {
         insertfirst(element);
     }
     else
     {
-        int pos=1;
+        int pos = 1;
         ptr = head;
-        while(ptr!=0)
+        while (ptr != 0)
         {
-            
+            if (pos == position)
+            {
+                newnode = (struct node *)malloc(sizeof(struct node));
+                newnode->data = element;
+                newnode->next = ptr;
+                before->next=newnode;
+            }
+            before=ptr;
+            ptr = ptr->next;
+            pos++;
         }
     }
 }
 
-
 void deletefirst()
 {
-    ptr=head;
-    head=ptr->next;
-    printf("The Deleted Element is:%d",ptr->data);
+    ptr = head;
+    head = ptr->next;
+    printf("The Deleted Element is:%d", ptr->data);
     free(ptr);
 }
 void deleteend()
 {
-    ptr=head;
+    ptr = head;
     struct node *before;
-    if(head->next==0)   
+    if (head->next == 0)
         deletefirst();
     else
     {
-        while(ptr->next!=NULL)
+        while (ptr->next != NULL)
         {
-            before=ptr;
-            ptr=ptr->next;
+            before = ptr;
+            ptr = ptr->next;
         }
-        before->next=0;
-        printf("The Deleted Element is:%d",ptr->data);
+        before->next = 0;
+        printf("The Deleted Element is:%d", ptr->data);
         free(ptr);
     }
 }
 
 void deleteafternode(int item)
 {
-    ptr=head;
-    while(ptr->next!=0)
+    ptr = head;
+    while (ptr->next != 0)
     {
-        if(ptr->data==item)
+        if (ptr->data == item)
         {
-            temp=ptr->next;
-            ptr->next=temp->next;
-            printf("The Deleted Element is:%d",temp->data);
+            temp = ptr->next;
+            ptr->next = temp->next;
+            printf("The Deleted Element is:%d", temp->data);
             free(temp);
             return;
         }
-        ptr=ptr->next;
+        ptr = ptr->next;
     }
     printf("Node with data %d not found in the Linked list\n", item);
 }
 void deletebeforenode(int item)
 {
-    ptr=head;
-    if(head->next->data==item && head->next != NULL )
+    ptr = head;
+    if (head->next->data == item && head->next != NULL)
         deletefirst();
-    else if(head->data==item)
+    else if (head->data == item)
         printf("Deleting is not Possible.");
     else
     {
-        while(ptr->next!=0 && ptr->next->next!=0)
+        while (ptr->next != 0 && ptr->next->next != 0)
         {
-            if(ptr->next->next->data==item)
+            if (ptr->next->next->data == item)
             {
-                temp=ptr->next;
-                printf("The Deleted Element is:%d",temp->data);
-                ptr->next=temp->next;
+                temp = ptr->next;
+                printf("The Deleted Element is:%d", temp->data);
+                ptr->next = temp->next;
                 free(temp);
                 return;
             }
-            ptr=ptr->next;
+            ptr = ptr->next;
         }
         printf("Node with data %d not found in the Linked list\n", item);
-
     }
 }
 int main()
 {
     int choice;
-    int n, c, item,pos;
+    int n, c, item, pos;
     do
     {
         printf("Enter Elements:");
