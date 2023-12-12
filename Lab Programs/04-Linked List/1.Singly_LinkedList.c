@@ -179,11 +179,10 @@ void deleteafternode(int item)
     }
     printf("Node with data %d not found in the Linked list\n", item);
 }
-/* Should Change */
 void deletebeforenode(int item)
 {
     ptr=head;
-    if(head->next->data==item)
+    if(head->next->data==item && head->next != NULL )
         deletefirst();
     else if(head->data==item)
         printf("Deleting is not Possible.");
