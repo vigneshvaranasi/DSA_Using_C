@@ -119,7 +119,7 @@ void insertbeforenode(int element, int item)
 }
 void insertatposition(int element, int position)
 {
-    struct node *before=NULL;
+    struct node *before = NULL;
     if (position == 1)
     {
         insertfirst(element);
@@ -135,9 +135,10 @@ void insertatposition(int element, int position)
                 newnode = (struct node *)malloc(sizeof(struct node));
                 newnode->data = element;
                 newnode->next = ptr;
-                before->next=newnode;
+                before->next = newnode;
+                return;
             }
-            before=ptr;
+            before = ptr;
             ptr = ptr->next;
             pos++;
         }
@@ -211,6 +212,33 @@ void deletebeforenode(int item)
         printf("Node with data %d not found in the Linked list\n", item);
     }
 }
+void deleteatposition(int position)
+{
+    struct node *before;
+    if (position==1)
+    {
+        deletefirst();
+    }
+    else
+    {
+        int pos = 1;
+        ptr = head;
+        while (ptr != 0)
+        {
+            if (pos == position)
+            {
+                before->next=ptr->next;
+                printf("The Deleted Element is:%d", ptr->data);
+                free(ptr);
+                return;
+            }
+            before = ptr;
+            ptr = ptr->next;
+            pos++;
+        }
+    }
+}
+
 int main()
 {
     int choice;
@@ -303,6 +331,11 @@ int main()
             scanf("%d", &item);
             deletebeforenode(item);
             break;
+        case 12:
+            printf("Enter position:");
+            scanf("%d", &pos);
+            deleteatposition(pos);
+            break;
         case 13:
             exit(0);
 
@@ -312,8 +345,3 @@ int main()
         }
     } while (1);
 }
-
-/* TO DO */
-
-/* Insert at a position */
-/* Delete at a position */
