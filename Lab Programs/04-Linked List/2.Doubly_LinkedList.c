@@ -127,7 +127,6 @@ void insertbeforenode(int element, int item)
         printf("Node with data %d not found in the Linked list\n", item);
     }
 }
-/* Should Change */
 void insertatposition(int element, int position)
 {
     if (position == 1)
@@ -146,24 +145,12 @@ void insertatposition(int element, int position)
                 newnode->data = element;
                 newnode->next = ptr;
                 newnode->prev = ptr->prev;
-                ptr->prev = newnode;
                 ptr->prev->next = newnode;
+                ptr->prev = newnode;
                 return;
             }
             ptr = ptr->next;
             pos++;
-        }
-        if (pos == position)
-        {
-            newnode = (struct node *)malloc(sizeof(struct node));
-            newnode->data = element;
-            newnode->next = NULL;
-            newnode->prev = ptr;
-            ptr->next = newnode;
-        }
-        else
-        {
-            printf("Invalid position for insertion.\n");
         }
     }
 }
@@ -231,6 +218,31 @@ void deletebeforenode(int item)
             ptr = ptr->next;
         }
         printf("Node with data %d not found in the Linked list\n", item);
+    }
+}
+void deleteatposition(int position)
+{
+    if (position==1)
+    {
+        deletefirst();
+    }
+    else
+    {
+        int pos = 1;
+        ptr = head;
+        while (ptr != 0)
+        {
+            if (pos == position)
+            {
+                ptr->prev->next=ptr->next;
+                ptr->next->prev=ptr->prev;
+                printf("The Deleted Element is:%d", ptr->data);
+                free(ptr);
+                return;
+            }
+            ptr = ptr->next;
+            pos++;
+        }
     }
 }
 int main()
@@ -325,6 +337,11 @@ int main()
             scanf("%d", &item);
             deletebeforenode(item);
             break;
+        case 12:
+            printf("Enter position:");
+            scanf("%d", &pos);
+            deleteatposition(pos);
+            break;
         case 13:
             exit(0);
 
@@ -334,8 +351,3 @@ int main()
         }
     } while (1);
 }
-
-/* TO DO */
-
-/* Insert at a position */
-/* Delete at a position */
