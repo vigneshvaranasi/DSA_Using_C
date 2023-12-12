@@ -124,23 +124,38 @@ void insertbeforenode(int element, int item)
         printf("Node with data %d not found in the Linked list\n", item);
     }
 }
-/* Should Change */
-void insertatposition(int element,int position)
+void insertatposition(int element, int position)
 {
-    if(position==1)
+    struct node *before = NULL;
+    if (position == 1)
     {
         insertfirst(element);
     }
     else
     {
-        int pos=1;
+        int pos = 1;
         ptr = head;
-        while(ptr!=0)
+        while (ptr->next != head && pos < position)
         {
+            before = ptr;
+            ptr = ptr->next;
+            pos++;
+        }
 
+        if (pos == position)
+        {
+            newnode = (struct node *)malloc(sizeof(struct node));
+            newnode->data = element;
+            newnode->next = ptr;
+            before->next = newnode;
+        }
+        else
+        {
+            printf("Invalid position specified for insertion.\n");
         }
     }
 }
+
 
 
 void deletefirst()
@@ -310,7 +325,5 @@ int main()
 
 /* TO DO */
 
-/* Insert at a position */
 
-/* Should DO all Dele
-te Operations  except delete at end*/
+/* Should DO all Delete Operations  except delete at end*/
