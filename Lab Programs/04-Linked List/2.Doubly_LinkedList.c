@@ -70,7 +70,7 @@ void insertfirst(int element)
     newnode->prev = 0;
     newnode->data = element;
     newnode->next = head;
-    head->prev=newnode;
+    head->prev = newnode;
     head = newnode;
 }
 void insertend(int element)
@@ -167,178 +167,175 @@ void insertatposition(int element, int position)
         }
     }
 }
-
-    void deletefirst()
+void deletefirst()
+{
+    ptr = head;
+    head = ptr->next;
+    head->prev = 0;
+    printf("The Deleted Element is:%d", ptr->data);
+    free(ptr);
+}
+void deleteend()
+{
+    ptr = head;
+    if (head->next == 0)
+        deletefirst();
+    else
     {
-        ptr = head;
-        head = ptr->next;
-        head->prev = 0;
+        while (ptr->next != NULL)
+        {
+            ptr = ptr->next;
+        }
+        ptr->prev->next = 0;
         printf("The Deleted Element is:%d", ptr->data);
         free(ptr);
     }
-    void deleteend()
+}
+void deleteafternode(int item)
+{
+    ptr = head;
+    while (ptr->next != 0)
     {
-        ptr = head;
-        if (head->next == 0)
-            deletefirst();
-        else
+        if (ptr->data == item)
         {
-            while (ptr->next != NULL)
-            {
-                ptr = ptr->next;
-            }
-            ptr->prev->next = 0;
-            printf("The Deleted Element is:%d", ptr->data);
-            free(ptr);
+            temp = ptr->next;
+            ptr->next = temp->next;
+            temp->next->prev = ptr;
+            printf("The Deleted Element is:%d", temp->data);
+            free(temp);
+            return;
         }
+        ptr = ptr->next;
     }
-
-    void deleteafternode(int item)
+    printf("Node with data %d not found in the Linked list\n", item);
+}
+void deletebeforenode(int item)
+{
+    ptr = head;
+    if (head->next != NULL && head->next->data == item)
+        deletefirst();
+    else if (head->data == item)
+        printf("Deleting is not Possible.");
+    else
     {
-        ptr = head;
         while (ptr->next != 0)
         {
-            if (ptr->data == item)
+            if (ptr->next->data == item)
             {
-                temp = ptr->next;
-                ptr->next = temp->next;
-                temp->next->prev = ptr;
-                printf("The Deleted Element is:%d", temp->data);
-                free(temp);
+                ptr->prev->next = ptr->next;
+                ptr->next->prev = ptr->prev;
+                printf("The Deleted Element is:%d", ptr->data);
+                free(ptr);
                 return;
             }
             ptr = ptr->next;
         }
         printf("Node with data %d not found in the Linked list\n", item);
     }
-    /* Should Change */
-    void deletebeforenode(int item)
+}
+int main()
+{
+    int choice;
+    int n, c, item, pos;
+    do
     {
-        ptr = head;
-        if (head->next != NULL && head->next->data == item)
-            deletefirst();
-        else if (head->data == item)
-            printf("Deleting is not Possible.");
-        else
-        {
-            while (ptr->next != 0)
-            {
-                if (ptr->next->data == item)
-                {
-                    ptr->prev->next = ptr->next;
-                    ptr->next->prev = ptr->prev;
-                    printf("The Deleted Element is:%d", ptr->data);
-                    free(ptr);
-                    return;
-                }
-                ptr = ptr->next;
-            }
-            printf("Node with data %d not found in the Linked list\n", item);
-        }
-    }
-    int main()
+        printf("Enter Elements:");
+        scanf("%d", &n);
+        read(n);
+        printf("Do you Want to continue(0 0r 1):");
+        scanf("%d", &c);
+    } while (c);
+    do
     {
-        int choice;
-        int n, c, item, pos;
-        do
+        printf("\n1.Display");
+        printf("\n2.Search");
+
+        printf("\n\n***INSERTION***\n");
+        printf("\n3.Insert First");
+        printf("\n4.Insert at End");
+        printf("\n5.Insert After Node");
+        printf("\n6.Insert Before Node");
+        printf("\n7.Insert at Position");
+
+        printf("\n\n***DELETION***\n");
+        printf("\n8.Delete at First");
+        printf("\n9.Delete at End");
+        printf("\n10.Delete After Node");
+        printf("\n11.Delete Before Node");
+        printf("\n12.Delete at Position");
+
+        printf("\n13.Exit");
+        printf("\nEnter Choice to Perform Action:");
+
+        scanf("%d", &choice);
+        switch (choice)
         {
-            printf("Enter Elements:");
+        case 1:
+            display();
+            break;
+        case 2:
+            printf("Enter Element to Search:");
             scanf("%d", &n);
-            read(n);
-            printf("Do you Want to continue(0 0r 1):");
-            scanf("%d", &c);
-        } while (c);
-        do
-        {
-            printf("\n1.Display");
-            printf("\n2.Search");
+            search(n);
+            break;
+        case 3:
+            printf("Enter Element to Insert:");
+            scanf("%d", &n);
+            insertfirst(n);
+            break;
+        case 4:
+            printf("Enter Element to Insert:");
+            scanf("%d", &n);
+            insertend(n);
+            break;
+        case 5:
+            printf("Enter Node:");
+            scanf("%d", &item);
+            printf("Enter Element to Insert:");
+            scanf("%d", &n);
+            insertafternode(n, item);
+            break;
+        case 6:
+            printf("Enter Node:");
+            scanf("%d", &item);
+            printf("Enter Element to Insert:");
+            scanf("%d", &n);
+            insertbeforenode(n, item);
+            break;
+        case 7:
+            printf("Enter position:");
+            scanf("%d", &pos);
+            printf("Enter Element to Insert:");
+            scanf("%d", &n);
+            insertatposition(n, pos);
+            break;
+        case 8:
+            deletefirst();
+            break;
+        case 9:
+            deleteend();
+            break;
+        case 10:
+            printf("Enter Node:");
+            scanf("%d", &item);
+            deleteafternode(item);
+            break;
+        case 11:
+            printf("Enter Node:");
+            scanf("%d", &item);
+            deletebeforenode(item);
+            break;
+        case 13:
+            exit(0);
 
-            printf("\n\n***INSERTION***\n");
-            printf("\n3.Insert First");
-            printf("\n4.Insert at End");
-            printf("\n5.Insert After Node");
-            printf("\n6.Insert Before Node");
-            printf("\n7.Insert at Position");
+        default:
+            printf("\nEnter Correct Choice.");
+            break;
+        }
+    } while (1);
+}
 
-            printf("\n\n***DELETION***\n");
-            printf("\n8.Delete at First");
-            printf("\n9.Delete at End");
-            printf("\n10.Delete After Node");
-            printf("\n11.Delete Before Node");
-            printf("\n12.Delete at Position");
+/* TO DO */
 
-            printf("\n13.Exit");
-            printf("\nEnter Choice to Perform Action:");
-
-            scanf("%d", &choice);
-            switch (choice)
-            {
-            case 1:
-                display();
-                break;
-            case 2:
-                printf("Enter Element to Search:");
-                scanf("%d", &n);
-                search(n);
-                break;
-            case 3:
-                printf("Enter Element to Insert:");
-                scanf("%d", &n);
-                insertfirst(n);
-                break;
-            case 4:
-                printf("Enter Element to Insert:");
-                scanf("%d", &n);
-                insertend(n);
-                break;
-            case 5:
-                printf("Enter Node:");
-                scanf("%d", &item);
-                printf("Enter Element to Insert:");
-                scanf("%d", &n);
-                insertafternode(n, item);
-                break;
-            case 6:
-                printf("Enter Node:");
-                scanf("%d", &item);
-                printf("Enter Element to Insert:");
-                scanf("%d", &n);
-                insertbeforenode(n, item);
-                break;
-            case 7:
-                printf("Enter position:");
-                scanf("%d", &pos);
-                printf("Enter Element to Insert:");
-                scanf("%d", &n);
-                insertatposition(n, pos);
-                break;
-            case 8:
-                deletefirst();
-                break;
-            case 9:
-                deleteend();
-                break;
-            case 10:
-                printf("Enter Node:");
-                scanf("%d", &item);
-                deleteafternode(item);
-                break;
-            case 11:
-                printf("Enter Node:");
-                scanf("%d", &item);
-                deletebeforenode(item);
-                break;
-            case 13:
-                exit(0);
-
-            default:
-                printf("\nEnter Correct Choice.");
-                break;
-            }
-        } while (1);
-    }
-
-    /* TO DO */
-
-    /* Insert at a position */
-    /* Delete at a position */
+/* Insert at a position */
+/* Delete at a position */
