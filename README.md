@@ -11,7 +11,7 @@ This repository is your comprehensive guide to mastering Data Structures and Alg
 2. [Sorting and Searching](#sorting-and-searching)
 3. [Linked Lists](#linked-lists)
 4. [Stacks](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Stack)
-5. [Queues](#queues)
+5. [Queues](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Queues)
 6. [Trees](#trees)
 7. [Graphs](#graphs)
 
