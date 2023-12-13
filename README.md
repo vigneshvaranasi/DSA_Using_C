@@ -14,7 +14,7 @@ This repository is your comprehensive guide to mastering Data Structures and Alg
 5. [Stacks](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Stack)
 6. [Queues](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Queues)
 7. [Trees](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Trees)
-8. [Graphs](#graphs)
+8. [Graphs](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Graphs)
 
 ## Recursion
 
