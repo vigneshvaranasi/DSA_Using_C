@@ -222,7 +222,7 @@ void deletebeforenode(int item)
 }
 void deleteatposition(int position)
 {
-    if (position==1)
+    if (position == 1)
     {
         deletefirst();
     }
@@ -234,8 +234,8 @@ void deleteatposition(int position)
         {
             if (pos == position)
             {
-                ptr->prev->next=ptr->next;
-                ptr->next->prev=ptr->prev;
+                ptr->prev->next = ptr->next;
+                ptr->next->prev = ptr->prev;
                 printf("The Deleted Element is:%d", ptr->data);
                 free(ptr);
                 return;
@@ -243,6 +243,44 @@ void deleteatposition(int position)
             ptr = ptr->next;
             pos++;
         }
+    }
+}
+void deletespecifiednode(int item)
+{
+    if (head == NULL)
+    {
+        printf("List is empty.\n");
+        return;
+    }
+    if (head->data == item)
+    {
+        deletefirst();
+    }
+    else
+    {
+        ptr = head;
+        while (ptr != NULL)
+        {
+            if (ptr->data == item)
+            {
+                if (ptr->next != NULL)
+                {
+                    ptr->prev->next = ptr->next;
+                    ptr->next->prev = ptr->prev;
+                }
+                else
+                {
+                    ptr->prev->next = NULL;
+                }
+
+                printf("The Deleted Element is:%d\n", ptr->data);
+                free(ptr);
+                return;
+            }
+            ptr = ptr->next;
+        }
+
+        printf("Element %d not found in the list.\n", item);
     }
 }
 int main()
@@ -275,8 +313,9 @@ int main()
         printf("\n10.Delete After Node");
         printf("\n11.Delete Before Node");
         printf("\n12.Delete at Position");
+        printf("\n13.Delete Specified Node");
 
-        printf("\n13.Exit");
+        printf("\n14.Exit");
         printf("\nEnter Choice to Perform Action:");
 
         scanf("%d", &choice);
@@ -343,6 +382,11 @@ int main()
             deleteatposition(pos);
             break;
         case 13:
+            printf("Enter Node to delete:");
+            scanf("%d", &item);
+            deletespecifiednode(item);
+            break;
+        case 14:
             exit(0);
 
         default:
