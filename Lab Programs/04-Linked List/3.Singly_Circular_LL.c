@@ -33,12 +33,11 @@ void display()
         printf("Linked List is Empty.");
         exit(0);
     }
-    do
+    while(ptr->next!=head)
     {
         printf("%d\t", ptr->data);
         ptr = ptr->next;
     }
-    while (ptr!= head);
 }
 void search(int element)
 {
