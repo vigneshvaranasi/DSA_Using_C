@@ -5,15 +5,16 @@ Welcome to the DSA using C repository! 🌐
 This repository is your comprehensive guide to mastering Data Structures and Algorithms using the C programming language. Dive into a well-organized collection of C code, meticulously arranged by topics, covering fundamental and advanced concepts in DSA.
 
 
-## Table of Contents
+## Links For Notes
 
-1. [Recursion](#recursion)
-2. [Sorting and Searching](#sorting-and-searching)
-3. [Linked Lists](#linked-lists)
-4. [Stacks](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Stack)
-5. [Queues](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Queues)
-6. [Trees](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Trees)
-7. [Graphs](#graphs)
+1. [Complexity](#recursion)
+2. [Recursion](#recursion)
+3. [Sorting and Searching](#sorting-and-searching)
+4. [Linked Lists](#linked-lists)
+5. [Stacks](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Stack)
+6. [Queues](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Queues)
+7. [Trees](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Trees)
+8. [Graphs](#graphs)
 
 ## Recursion
 
