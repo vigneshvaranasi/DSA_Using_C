@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Searching and Sorting</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d14bcdd5-c9fa-4af6-8088-55c1e4abd50b" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/search_green.svg"/></div><h1 class="page-title">Searching and Sorting</h1><p class="page-description"></p></header><div class="page-body"><h1 id="3cac394d-13ae-410a-8835-e3012467a6c9" class="">Searching:</h1><p id="5121ddd6-ddd6-4871-8a6e-11f9de7bb04d" class="">Searching refers to the process of finding a specific element in a collection of data.</p><ul id="f1f4cb29-44eb-4e13-8bc1-f0e050b0436f" class="bulleted-list"><li style="list-style-type:disc"><strong>Linear Search:</strong><ul id="7a7a5870-2cc8-45ae-b0f9-0c1c00a1fc95" class="bulleted-list"><li style="list-style-type:circle"><strong>Description:</strong> Linear search, or sequential search, involves scanning the elements of a collection one by one until the desired element is found or the end of the collection is reached.</li></ul><ul id="d6b9b75e-5865-4aae-a1b9-570927946954" class="bulleted-list"><li style="list-style-type:circle"><strong>Time Complexity:</strong> O(n) in the worst case, where &quot;n&quot; is the number of elements in the collection.</li></ul></li></ul><ul id="b827729e-1297-4784-8e9b-b54ebe75e37a" class="bulleted-list"><li style="list-style-type:disc"><strong>Binary Search:</strong><ul id="17ee4fe4-7a3b-42fe-b718-cd52ab9c78e3" class="bulleted-list"><li style="list-style-type:circle"><strong>Description:</strong> Binary search is applicable to sorted collections. It repeatedly divides the search interval in half and compares the middle element with the target, narrowing down the search until the target is found or the search space is empty.</li></ul><ul id="f8ac6455-7e0d-4972-a057-7c554c3d1955" class="bulleted-list"><li style="list-style-type:circle"><strong>Time Complexity:</strong> O(log n) in the worst case for a sorted collection, where &quot;n&quot; is the number of elements.</li></ul></li></ul><h3 id="4d626614-1413-462d-85e4-56fd6c07d94f" class="">Difference Between Linear Search and Binary Search:</h3><table id="3a21ffcc-5ddf-4cdf-bab3-fa0a449df83c" class="simple-table"><tbody><tr id="9a9669ed-5815-49ad-8692-1a9950099c4c"><td id="&gt;b}i" class="">Feature</td><td id="{QE|" class="" style="width:239.625px">Linear Search</td><td id="T&lt;q}" class="" style="width:302px">Binary Search</td></tr><tr id="53ee3165-91b1-4bfe-ae0b-60ef8ffbb5f4"><td id="&gt;b}i" class=""><strong>Nature of Data</strong></td><td id="{QE|" class="" style="width:239.625px">Works on both sorted and unsorted arrays/lists.</td><td id="T&lt;q}" class="" style="width:302px">Requires a sorted array/list.</td></tr><tr id="f6389f09-9262-4098-a26e-270284ea60f7"><td id="&gt;b}i" class=""><strong>Algorithm Type</strong></td><td id="{QE|" class="" style="width:239.625px">Sequential search algorithm.</td><td id="T&lt;q}" class="" style="width:302px">Divide and conquer algorithm.</td></tr><tr id="b7604f13-0a49-467b-be01-d876a6ba31b9"><td id="&gt;b}i" class=""><strong>Approach</strong></td><td id="{QE|" class="" style="width:239.625px">Scans elements one by one until the target is found or the end is reached.</td><td id="T&lt;q}" class="" style="width:302px">Divides the search space in half at each step.</td></tr><tr id="49c8d1a6-65b4-45fc-b6cf-ef73530cb3a0"><td id="&gt;b}i" class=""><strong>Time Complexity</strong></td><td id="{QE|" class="" style="width:239.625px">Worst Case: O(n) - Linear time complexity.</td><td id="T&lt;q}" class="" style="width:302px">Worst Case: O(log n) - Logarithmic time complexity for a sorted array.</td></tr><tr id="6c6fef3c-7bff-44b3-ba61-891a4107e2f9"><td id="&gt;b}i" class=""><strong>Best Case</strong></td><td id="{QE|" class="" style="width:239.625px">O(1) - If the target is found at the beginning.</td><td id="T&lt;q}" class="" style="width:302px">O(1) - If the target is found at the middle.</td></tr><tr id="dc110745-ddc4-4b64-81cd-b415ed6272b0"><td id="&gt;b}i" class=""><strong>Average Case</strong></td><td id="{QE|" class="" style="width:239.625px">O(n/2) - On average, the target is found in the middle.</td><td id="T&lt;q}" class="" style="width:302px">O(log n) - On average, the target is found in log⁡2(n)log2​(n) comparisons.</td></tr><tr id="0bd5542c-68ac-4646-b33e-4812e7967ced"><td id="&gt;b}i" class=""><strong>Use Cases</strong></td><td id="{QE|" class="" style="width:239.625px">Suitable for small datasets or unsorted collections.</td><td id="T&lt;q}" class="" style="width:302px">Efficient for large sorted datasets.</td></tr><tr id="5722f5e4-ad57-43e8-91f2-30663b3a99fe"><td id="&gt;b}i" class=""><strong>Ease of Implementation</strong></td><td id="{QE|" class="" style="width:239.625px">Easier to implement.</td><td id="T&lt;q}" class="" style="width:302px">Requires a sorted dataset but is relatively straightforward to implement.</td></tr></tbody></table><h1 id="533ce49d-b10a-4624-82fa-65f5c6ef9102" class="">Sorting:</h1><p id="a25b9411-f09f-4bd4-b29f-c659f64ee345" class="">Sorting is the process of arranging elements in a particular order, typically in ascending or descending order based on certain criteria.</p><ol type="1" id="4dd92260-db84-486e-847c-f51d6653d12c" class="numbered-list" start="1"><li><strong>Bubble Sort:</strong><ul id="0a1a93fb-56ec-419c-a0a4-2135f5b73a61" class="bulleted-list"><li style="list-style-type:disc"><strong>Description:</strong> Iteratively compares adjacent elements and swaps them if they are in the wrong order. The process is repeated until the entire list is sorted.</li></ul><ul id="186bbbf0-9dd3-4333-8afe-37eee202b852" class="bulleted-list"><li style="list-style-type:disc"><strong>Time Complexity:</strong> O(n^2) in the worst case.</li></ul></li></ol><ol type="1" id="f37f6535-2421-4149-8927-8441141efa36" class="numbered-list" start="2"><li><strong>Selection Sort:</strong><ul id="4c1369ef-f0fc-4d3c-bdb5-50efa51aaa99" class="bulleted-list"><li style="list-style-type:disc"><strong>Description:</strong> Divides the list into a sorted and an unsorted region. In each iteration, the minimum (or maximum) element from the unsorted region is selected and moved to the sorted region.</li></ul><ul id="1f95f46d-8022-42b2-94e4-72a0e487f82f" class="bulleted-list"><li style="list-style-type:disc"><strong>Time Complexity:</strong> O(n^2) in the worst case.</li></ul></li></ol><ol type="1" id="ac02e5c3-7fd1-4cd0-b7ac-6d27d8d41cb7" class="numbered-list" start="3"><li><strong>Insertion Sort:</strong><ul id="16b8b37d-1b8a-4908-aa86-d58172329c64" class="bulleted-list"><li style="list-style-type:disc"><strong>Description:</strong> Builds the sorted list one element at a time by repeatedly taking elements from the unsorted part and inserting them into their correct position in the sorted part.</li></ul><ul id="ed98b378-62d4-4fbc-8cc1-2ff634fd9760" class="bulleted-list"><li style="list-style-type:disc"><strong>Time Complexity:</strong> O(n^2) in the worst case.</li></ul></li></ol><ol type="1" id="ac7d34da-987d-4a5c-b0aa-92873d7081ee" class="numbered-list" start="4"><li><strong>Merge Sort:</strong><ul id="c6ff63ba-c3aa-4e50-829c-829896e4311a" class="bulleted-list"><li style="list-style-type:disc"><strong>Description:</strong> Divides the list into two halves, recursively sorts each half, and then merges them back together. It is a divide-and-conquer algorithm.</li></ul><ul id="7ac00e33-9ca4-40c4-82c9-cf359dd4446b" class="bulleted-list"><li style="list-style-type:disc"><strong>Time Complexity:</strong> O(n log n) in the worst case.</li></ul></li></ol><ol type="1" id="e62a09f6-3945-44c2-8665-72f94fe23d77" class="numbered-list" start="5"><li><strong>Quick Sort:</strong><ul id="4d33d212-74f5-443b-baad-0a1c957de2e2" class="bulleted-list"><li style="list-style-type:disc"><strong>Description:</strong> Chooses a pivot element and partitions the list into two sublists, elements smaller than the pivot and elements greater than the pivot. Recursively applies the same process to the sublists.</li></ul><ul id="31e59b2a-90e1-48eb-950b-414b49b2f900" class="bulleted-list"><li style="list-style-type:disc"><strong>Time Complexity:</strong> O(n^2) in the worst case (rarely occurs), but O(n log n) on average.</li></ul></li></ol><h3 id="2eb70b1e-ec39-4f73-90cb-6542067e601e" class="">Differences between Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort:</h3><table id="27852722-5b59-4f6c-a450-b52848a72907" class="simple-table"><tbody><tr id="27402e3d-fc5c-4788-b873-d91c27192073"><td id="ZTD}" class="">Feature</td><td id="XD`_" class="">Bubble Sort</td><td id="Lf@x" class="">Selection Sort</td><td id="ieHp" class="">Insertion Sort</td><td id="bF[R" class="">Merge Sort</td><td id="P\W_" class="">Quick Sort</td></tr><tr id="591daad5-b2f3-459d-95b2-fd8a1188d823"><td id="ZTD}" class=""><strong>Algorithm Type</strong></td><td id="XD`_" class="">Comparison-based Sorting Algorithm</td><td id="Lf@x" class="">Comparison-based Sorting Algorithm</td><td id="ieHp" class="">Comparison-based Sorting Algorithm</td><td id="bF[R" class="">Comparison-based Sorting Algorithm (Divide and Conquer)</td><td id="P\W_" class="">Comparison-based Sorting Algorithm (Divide and Conquer)</td></tr><tr id="67aa8c72-c57e-4f2a-ba6f-ddc792566f16"><td id="ZTD}" class=""><strong>Approach</strong></td><td id="XD`_" class="">Iterative</td><td id="Lf@x" class="">Iterative</td><td id="ieHp" class="">Iterative</td><td id="bF[R" class="">Recursive (Divide and Conquer)</td><td id="P\W_" class="">Recursive (Divide and Conquer)</td></tr><tr id="3b1b6d35-5f67-4326-8a25-2eba52613f87"><td id="ZTD}" class=""><strong>Worst Time Complexity</strong></td><td id="XD`_" class="">O(n^2)</td><td id="Lf@x" class="">O(n^2)</td><td id="ieHp" class="">O(n^2)</td><td id="bF[R" class="">O(n log n)</td><td id="P\W_" class="">O(n^2) (rarely occurs, but possible)</td></tr><tr id="62a2b4ac-31f7-43dd-9380-28538556364c"><td id="ZTD}" class=""><strong>Average Time Complexity</strong></td><td id="XD`_" class="">O(n^2)</td><td id="Lf@x" class="">O(n^2)</td><td id="ieHp" class="">O(n^2)</td><td id="bF[R" class="">O(n log n)</td><td id="P\W_" class="">O(n log n)</td></tr><tr id="285b6eb8-14a1-4917-be02-8fabf98c3494"><td id="ZTD}" class=""><strong>Best Time Complexity</strong></td><td id="XD`_" class="">O(n)</td><td id="Lf@x" class="">O(n^2)</td><td id="ieHp" class="">O(n)</td><td id="bF[R" class="">O(n log n)</td><td id="P\W_" class="">O(n log n)</td></tr><tr id="c55593fe-6888-4de5-a3b6-a4c4327428f7"><td id="ZTD}" class=""><strong>Space Complexity</strong></td><td id="XD`_" class="">O(1)</td><td id="Lf@x" class="">O(1)</td><td id="ieHp" class="">O(1)</td><td id="bF[R" class="">O(n) (additional space for merging)</td><td id="P\W_" class="">O(log n) (additional space for recursive calls)</td></tr><tr id="914bf05d-e311-42d0-9974-fd111e9be288"><td id="ZTD}" class=""><strong>Stability</strong></td><td id="XD`_" class="">Stable (equal elements maintain their relative order)</td><td id="Lf@x" class="">Unstable (equal elements may change their order)</td><td id="ieHp" class="">Stable (equal elements maintain their relative order)</td><td id="bF[R" class="">Stable</td><td id="P\W_" class="">Unstable</td></tr><tr id="7cbfa8e0-2e6b-4c78-88f7-82ee708f0b01"><td id="ZTD}" class=""><strong>Adaptability</strong></td><td id="XD`_" class="">Can be adaptive with optimized implementations.</td><td id="Lf@x" class="">Not adaptive.</td><td id="ieHp" class="">Can be adaptive with optimized implementations.</td><td id="bF[R" class="">Not adaptive.</td><td id="P\W_" class="">Can be adaptive with optimized implementations.</td></tr></tbody></table><p id="747fb568-4991-4b86-8839-41bd217e7691" class="">
+</p><p id="bbc714ae-e8fe-4b7c-8ac9-1eb576630e5c" class="">
+</p><p id="1af98b13-46c9-4d70-9345-4b014e0fec62" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
