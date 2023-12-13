@@ -1,0 +1,678 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Linked List</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="12423ca0-c7c5-48a4-8b46-df9699afeb6b" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🖇️</span></div><h1 class="page-title">Linked List</h1><p class="page-description"></p></header><div class="page-body"><p id="15288740-de1d-4a7e-af5e-e6775bca846a" class="">
+</p><h3 id="aaf9883a-1d38-493d-8ae6-96fe94abb0ba" class="">Definition:</h3><p id="6aee3ce4-ad98-41bf-bb9e-692333afd917" class="">A linked list is a linear data structure in which elements are stored in nodes, and each node points to the next node in the sequence, forming a chain-like structure. Unlike arrays, linked lists do not have a fixed size in memory, and their size can be dynamically adjusted during runtime.</p><h3 id="d9c91256-364b-48cd-95e6-07d68f2052d5" class="">Key Components of a Linked List:</h3><ol type="1" id="29614c22-0fe6-409c-948b-d063cbbb5018" class="numbered-list" start="1"><li><strong>Node:</strong><ul id="73f980a5-bb22-46d6-96be-4138d313d769" class="bulleted-list"><li style="list-style-type:disc">The basic building block of a linked list is a node.</li></ul><ul id="57eb8565-75c8-438d-84b2-0555ab84b228" class="bulleted-list"><li style="list-style-type:disc">Each node contains two fields:<ul id="a58574f0-23ab-45ba-8812-0d25527ed6e7" class="bulleted-list"><li style="list-style-type:circle">Data: The actual information stored in the node.</li></ul><ul id="87d62c26-67a5-410d-b854-dbdb7ac1f110" class="bulleted-list"><li style="list-style-type:circle">Next: A reference (or link) to the next node in the sequence.</li></ul></li></ul></li></ol><ol type="1" id="7cd8f938-f3c7-4933-aa28-1895a0a39bad" class="numbered-list" start="2"><li><strong>Head:</strong><ul id="3978b2ad-9f01-4a84-959c-eb124dd3f985" class="bulleted-list"><li style="list-style-type:disc">The first node in the linked list is called the head.</li></ul><ul id="aa6358e4-0e89-42e0-98c8-5f58b126787d" class="bulleted-list"><li style="list-style-type:disc">The head points to the beginning of the list.</li></ul></li></ol><ol type="1" id="f4821df0-d0ec-4f0d-8d25-354c2dc4361f" class="numbered-list" start="3"><li><strong>Tail:</strong><ul id="600dab90-e5ca-4678-b5e9-99b78761fd96" class="bulleted-list"><li style="list-style-type:disc">The last node in the linked list is called the tail.</li></ul><ul id="6f116baf-f462-4193-88eb-2d5568504417" class="bulleted-list"><li style="list-style-type:disc">The tail&#x27;s &quot;next&quot; reference is typically set to null, indicating the end of the list.</li></ul></li></ol><h3 id="c597a2d7-5fa8-4481-a2ee-3d5859d1730a" class="">Types of Linked Lists:</h3><ol type="1" id="7f247961-1d34-4904-887b-4dbf09ead0b7" class="numbered-list" start="1"><li><strong>Singly Linked List:</strong><ul id="eddf865c-e1e0-40ff-b2eb-1374f9e01553" class="bulleted-list"><li style="list-style-type:disc">Each node points to the next node in the sequence.</li></ul><ul id="f9f1eb82-2330-4a49-9cd2-bd092434682c" class="bulleted-list"><li style="list-style-type:disc">It only allows for traversing the list in one direction (forward).</li></ul></li></ol><ol type="1" id="b75b8041-6cd1-466d-bc0d-03f07a871115" class="numbered-list" start="2"><li><strong>Doubly Linked List:</strong><ul id="1411cb98-3173-4fd0-8b6f-6ec82183cb92" class="bulleted-list"><li style="list-style-type:disc">Each node has two references: one to the next node and another to the previous node.</li></ul><ul id="cdd3f6c5-9678-43dd-82c8-d8091bbbf9b7" class="bulleted-list"><li style="list-style-type:disc">Allows for traversal in both forward and backward directions.</li></ul></li></ol><ol type="1" id="9c529b3a-434b-456b-b84a-e8a2d84198e8" class="numbered-list" start="3"><li><strong>Circular Linked List:</strong><ul id="228d1655-0546-4b4d-9629-82f71db8ac88" class="bulleted-list"><li style="list-style-type:disc">The last node in the list points back to the first node, creating a circular structure.</li></ul></li></ol><h3 id="52014f1b-1312-4da0-ad30-76239635f97a" class="">Time Complexity:</h3><table id="2674a977-2f92-4b3f-b97e-85c2c9d0787b" class="simple-table"><tbody><tr id="cf50ba11-8440-44ed-a8f1-749c732ae614"><td id="]&gt;at" class="">Operation</td><td id="ZuKi" class="">Singly Linked List (SLL)</td><td id="t=&gt;Z" class="">Doubly Linked List (DLL)</td></tr><tr id="34c7c94b-90d3-4cfd-b1b6-811da7393977"><td id="]&gt;at" class=""><strong>Display</strong></td><td id="ZuKi" class="">O(n)</td><td id="t=&gt;Z" class="">O(n)</td></tr><tr id="9b7dbdfb-29f1-4dbc-b1f9-07cd6b005b66"><td id="]&gt;at" class=""><strong>Search</strong></td><td id="ZuKi" class="">O(n)</td><td id="t=&gt;Z" class="">O(n)</td></tr><tr id="8c55e495-07c8-438e-95d0-2bf81a998f6a"><td id="]&gt;at" class=""><strong>Insertion at the Beginning (SLL/DLL)</strong></td><td id="ZuKi" class="">O(1)</td><td id="t=&gt;Z" class="">O(1)</td></tr><tr id="a77a3c75-a8d8-46e4-ba97-637fd1b95206"><td id="]&gt;at" class=""><strong>Insertion at the End (SLL/DLL)</strong></td><td id="ZuKi" class="">O(n)</td><td id="t=&gt;Z" class="">O(1)</td></tr><tr id="e144da73-7357-4231-8fc1-b96706c0ea9e"><td id="]&gt;at" class=""><strong>Insertion After Node (SLL/DLL)</strong></td><td id="ZuKi" class="">O(n)</td><td id="t=&gt;Z" class="">O(1)</td></tr><tr id="afcbe256-6e2b-4087-a359-1dbebe0b5f93"><td id="]&gt;at" class=""><strong>Insertion Before Node (DLL)</strong></td><td id="ZuKi" class="">N/A</td><td id="t=&gt;Z" class="">O(1)</td></tr><tr id="5e75f458-7051-4818-ab52-4f9734abc644"><td id="]&gt;at" class=""><strong>Insertion at Position (SLL/DLL)</strong></td><td id="ZuKi" class="">O(n)</td><td id="t=&gt;Z" class="">O(n)</td></tr><tr id="83095b77-8d93-42f2-bb62-198484d2b746"><td id="]&gt;at" class=""><strong>Deletion at the Beginning (SLL/DLL)</strong></td><td id="ZuKi" class="">O(1)</td><td id="t=&gt;Z" class="">O(1)</td></tr><tr id="858443df-ed00-48b6-86a8-8d161f20869a"><td id="]&gt;at" class=""><strong>Deletion at the End (SLL/DLL)</strong></td><td id="ZuKi" class="">O(n)</td><td id="t=&gt;Z" class="">O(1)</td></tr><tr id="b5fe097f-26f0-463d-8686-36e36bc09403"><td id="]&gt;at" class=""><strong>Deletion After Node (SLL/DLL)</strong></td><td id="ZuKi" class="">O(n)</td><td id="t=&gt;Z" class="">O(1)</td></tr><tr id="c374afef-8443-4dda-9078-34835aa8c182"><td id="]&gt;at" class=""><strong>Deletion Before Node (DLL)</strong></td><td id="ZuKi" class="">N/A</td><td id="t=&gt;Z" class="">O(1)</td></tr><tr id="8e501251-be77-4627-9146-666b759a509a"><td id="]&gt;at" class=""><strong>Deletion at Position (SLL/DLL)</strong></td><td id="ZuKi" class="">O(n)</td><td id="t=&gt;Z" class="">O(n)</td></tr></tbody></table><h3 id="c5078bbd-d01f-4535-b20b-3888320fe234" class="">Difference Between Single Linked List and Double Linked List:</h3><table id="eb7838f6-f201-4465-991a-ad5e9d74c1f6" class="simple-table"><tbody><tr id="a951d89a-1cd0-4d52-8bfa-85e188cfac4f"><td id="_qNj" class="">Feature</td><td id="WB{T" class="">Single Linked List</td><td id="KOLm" class="" style="width:309px">Double Linked List</td></tr><tr id="0019c5ad-a0ef-41ba-9baa-5a46c84080d3"><td id="_qNj" class=""><strong>Node Structure</strong></td><td id="WB{T" class="">Each node contains data and a pointer to the next node.</td><td id="KOLm" class="" style="width:309px">Each node contains data, a pointer to the next node, and a pointer to the previous node.</td></tr><tr id="2ed123f4-5a93-4c1c-80f1-5580b3f5acbd"><td id="_qNj" class=""><strong>Traversal</strong></td><td id="WB{T" class="">Can only be traversed in the forward direction.</td><td id="KOLm" class="" style="width:309px">Can be traversed in both the forward and backward direction.</td></tr><tr id="2f69721f-c43e-44a2-816f-2a0132486f79"><td id="_qNj" class=""><strong>Insertion</strong></td><td id="WB{T" class="">Requires the location of the node before the insertion point.</td><td id="KOLm" class="" style="width:309px">Only requires the location of the insertion point.</td></tr><tr id="3f25f07c-6a0d-4d91-b8cd-44c06990ddd9"><td id="_qNj" class=""><strong>Deletion</strong></td><td id="WB{T" class="">Requires the location of the node before the deletion point.</td><td id="KOLm" class="" style="width:309px">Only requires the location of the node to be deleted.</td></tr><tr id="32c826f7-3ee5-4956-92b0-45be80cceafe"><td id="_qNj" class=""><strong>Memory Usage</strong></td><td id="WB{T" class="">Uses less memory as it requires only one pointer per node.</td><td id="KOLm" class="" style="width:309px">Uses more memory as it requires two pointers per node.</td></tr><tr id="08e96d68-6d4c-453a-97a4-a27dab071118"><td id="_qNj" class=""><strong>Applications</strong></td><td id="WB{T" class="">Suitable for applications where only forward traversal is needed, such as <strong>stacks</strong>.</td><td id="KOLm" class="" style="width:309px">Suitable for applications where both forward and backward traversal is needed, such as implementing a <strong>Music Player Playlist functionality.</strong></td></tr></tbody></table><h3 id="9824b00d-8e0c-45f6-a5da-fe4d276520fc" class="">Drawbacks of Single Linked List:</h3><ol type="1" id="8c4bca3f-8509-4bdd-992e-179ee231c90c" class="numbered-list" start="1"><li>Unidirectional Traversal</li></ol><ol type="1" id="82b2ffed-1f40-47ec-bf2e-2726ce6107c9" class="numbered-list" start="2"><li>Inefficient Removal of Nodes</li></ol><ol type="1" id="4e8cb9d1-4221-4fac-a6e5-91eb73b1e844" class="numbered-list" start="3"><li>No Direct Access to Previous Node</li></ol><ol type="1" id="30d9ddc3-8b2b-477c-9171-29bd6879ad40" class="numbered-list" start="4"><li>Extra Pointer for Tail</li></ol><ol type="1" id="8a764582-d93e-4c12-a8ae-12659d4d6e98" class="numbered-list" start="5"><li>Limited Application in Certain Algorithms</li></ol><ol type="1" id="34c8f104-587f-4e6a-ba39-d33017f86d00" class="numbered-list" start="6"><li>Difficulty in Finding the kth Element from the End</li></ol><ol type="1" id="19982a53-2e3b-4287-9e0c-e4bf242f88d0" class="numbered-list" start="7"><li>Not Suitable for Some Algorithms</li></ol><ol type="1" id="f33e084d-922e-42cf-b808-aa1ffd1de509" class="numbered-list" start="8"><li>Difficulty in Detecting Loop</li></ol><h3 id="cd34f80d-ad54-4803-a88a-b5137775036b" class="">Differences between Linked Lists and Arrays:</h3><table id="41a187ac-0f4f-4d8f-a5dc-833de00f2075" class="simple-table"><tbody><tr id="944d5768-8e92-4482-8a39-9a001b786fc0"><td id="HRNm" class="">Feature</td><td id="RkCv" class="">Linked List (LL)</td><td id="U@Ix" class="">Array</td></tr><tr id="ce7a81bf-1531-47d7-9851-def557570937"><td id="HRNm" class=""><strong>Memory Allocation</strong></td><td id="RkCv" class="">Dynamic, non-contiguous</td><td id="U@Ix" class="">Static, contiguous</td></tr><tr id="fc8a7f69-aaa9-4b0a-8fab-4eb008e9a67a"><td id="HRNm" class=""><strong>Size Flexibility</strong></td><td id="RkCv" class="">Dynamic, can change during runtime</td><td id="U@Ix" class="">Fixed, predefined size</td></tr><tr id="6d7ef08e-4fa7-4e55-b753-d4c6250cbf34"><td id="HRNm" class=""><strong>Insertion/Deletion</strong></td><td id="RkCv" class="">Efficient for insertions/deletions at any position</td><td id="U@Ix" class="">Inefficient for insertions/deletions in the middle</td></tr><tr id="1825113e-01a3-4a5a-a979-c7eb5a29f4a2"><td id="HRNm" class=""><strong>Random Access</strong></td><td id="RkCv" class="">Inefficient, O(n) time complexity for access</td><td id="U@Ix" class="">Efficient, O(1) time complexity for access</td></tr><tr id="0d5d21e8-a543-49e2-99dd-f7381dc822ea"><td id="HRNm" class=""><strong>Memory Overhead</strong></td><td id="RkCv" class="">Higher due to storage of pointers</td><td id="U@Ix" class="">Lower, as no additional pointers</td></tr><tr id="c2736048-13f1-4ace-8a1c-77ad5ba15369"><td id="HRNm" class=""><strong>Memory Usage</strong></td><td id="RkCv" class="">May use more memory due to pointers</td><td id="U@Ix" class="">Efficient usage of memory</td></tr><tr id="1c688a67-ffce-445e-9f97-26bbfcb910f7"><td id="HRNm" class=""><strong>Contiguity</strong></td><td id="RkCv" class="">Non-contiguous, scattered in memory</td><td id="U@Ix" class="">Contiguous, stored in a single block</td></tr><tr id="0b393901-58aa-4e17-8727-e767c991dbf6"><td id="HRNm" class=""><strong>Implementation Complexity</strong></td><td id="RkCv" class="">Generally simpler to implement</td><td id="U@Ix" class="">Straightforward implementation</td></tr><tr id="0d3dba8f-1eb3-49dc-a0c3-668ce4f9649e"><td id="HRNm" class=""><strong>Size Determination</strong></td><td id="RkCv" class="">Not required to specify size initially</td><td id="U@Ix" class="">Requires specifying size at declaration</td></tr><tr id="b8ea2070-03b8-4068-a9d9-be598bf1eba2"><td id="HRNm" class=""><strong>Application Flexibility</strong></td><td id="RkCv" class="">Well-suited for dynamic data structures</td><td id="U@Ix" class="">Suitable for scenarios with fixed-size data</td></tr></tbody></table><h3 id="bb80e628-2abd-4f00-a806-d873954bbdd8" class="">Advantages and Disadvantages of Linked Lists:</h3><p id="dae0713b-22dd-4ada-b120-bd94a01fe604" class=""><mark class="highlight-teal"><strong>Advantages of Linked Lists:</strong></mark></p><ol type="1" id="6ba07c97-60c5-485d-b2ef-915ba342cd40" class="numbered-list" start="1"><li><strong>Dynamic Size:</strong><ul id="ddfc72e7-d300-40de-8862-bac41f229b53" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantage:</strong> Easily accommodates varying data sizes as memory is dynamically allocated.</li></ul><ul id="05c4eb89-dd45-4767-8c9a-e44a101e137a" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Ideal for situations where the size of the data is not known in advance.</li></ul></li></ol><ol type="1" id="5eda5d75-6c6a-46ee-8ebf-e374d827e157" class="numbered-list" start="2"><li><strong>Efficient Insertion and Deletion:</strong><ul id="3514fc98-7401-47c6-8698-b7f8e7585a3d" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantage:</strong> Adding or removing elements is efficient, requiring adjustments to pointers.</li></ul><ul id="0d05c8a1-8fa3-476a-8444-da335738e4f6" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Suitable for scenarios involving frequent insertions and deletions.</li></ul></li></ol><ol type="1" id="ac8caff7-84ca-421d-b123-fabb44f45e20" class="numbered-list" start="3"><li><strong>No Wastage of Memory:</strong><ul id="d1b86696-de40-4fe7-b884-6629cf95ead3" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantage:</strong> Memory utilization is efficient as each element can be allocated precisely as needed.</li></ul><ul id="b9ec64e0-36f6-4bb8-ba2a-1c8e8ee71abd" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Useful when optimizing memory usage is a critical concern.</li></ul></li></ol><ol type="1" id="7d99bd16-1577-4fde-8643-ea7ed8961baa" class="numbered-list" start="4"><li><strong>Ease of Implementation:</strong><ul id="d12c0b12-774a-4911-ad46-d8681c03200b" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantage:</strong> Simple to implement and understand, making it accessible for various applications.</li></ul><ul id="51da4e22-3399-4b3b-9e24-9268e6d972d1" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Commonly used in educational settings and introductory programming courses.</li></ul></li></ol><ol type="1" id="656a8f6f-53f8-4442-b1cd-2d3e5fb22d43" class="numbered-list" start="5"><li><strong>Versatility:</strong><ul id="a24dd7ed-3ae6-4aa9-9106-5f8ca8004076" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantage:</strong> Supports various data structures, including stacks, queues, and symbol tables.</li></ul><ul id="fb2a1e7b-f934-4822-959c-240b434d2b7a" class="bulleted-list"><li style="list-style-type:disc"><strong>Use Case:</strong> Versatile for implementing different algorithms and data structures.</li></ul></li></ol><p id="4128cbd8-db5b-49be-af41-50d5ee4c0062" class=""><mark class="highlight-red"><strong>Disadvantages of Linked Lists:</strong></mark></p><ol type="1" id="58cd8f98-3d76-45d8-b15b-b0f50271fb60" class="numbered-list" start="1"><li><strong>Sequential Access:</strong><ul id="c91fc2c9-7494-43d2-9538-83f8b71bbab8" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantage:</strong> Accessing elements requires sequential traversal from the beginning.</li></ul><ul id="8713889d-b473-4f4c-a1de-f1b5f24a95f4" class="bulleted-list"><li style="list-style-type:disc"><strong>Impact:</strong> Inefficient for scenarios requiring random access or searching.</li></ul></li></ol><ol type="1" id="ce1269fe-aa4f-48ec-a26f-29687f176ebc" class="numbered-list" start="2"><li><strong>Extra Memory Usage:</strong><ul id="c95a8bfd-a9b3-498b-b9ac-e0f83c7eb70b" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantage:</strong> Additional memory is needed for storing pointers, increasing overhead.</li></ul><ul id="bf3ef914-5297-41d2-baf4-51697d27cfd2" class="bulleted-list"><li style="list-style-type:disc"><strong>Impact:</strong> Higher space complexity compared to arrays in certain cases.</li></ul></li></ol><ol type="1" id="2008b75a-26aa-4ff9-a37e-2115526c0b49" class="numbered-list" start="3"><li><strong>Complexity of Implementation:</strong><ul id="1182177a-528e-4b77-9330-14d317a96095" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantage:</strong> Implementing linked lists can be more complex than arrays.</li></ul><ul id="39c4d7ee-6851-4418-91e7-e7ab4275f3ce" class="bulleted-list"><li style="list-style-type:disc"><strong>Impact:</strong> May pose challenges in scenarios where simplicity is a priority.</li></ul></li></ol><ol type="1" id="6d759714-edfb-4d87-9b51-0a671c55c67f" class="numbered-list" start="4"><li><strong>Lack of Cache Locality:</strong><ul id="67fbcfaf-ff99-4994-8bb5-37d36acd51d9" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantage:</strong> Poor cache locality can result in suboptimal performance.</li></ul><ul id="77762cb0-f18c-46ce-9140-63f4e6913040" class="bulleted-list"><li style="list-style-type:disc"><strong>Impact:</strong> May affect performance in applications with high memory access patterns.</li></ul></li></ol><ol type="1" id="43c02a34-5f1d-4ac0-96ac-211a3061c866" class="numbered-list" start="5"><li><strong>Memory Overhead:</strong><ul id="4497d5c5-9427-4fe8-bd81-0a0102406641" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantage:</strong> Requires additional memory for storing pointers, impacting efficiency.</li></ul><ul id="ff324042-fa80-476f-bafc-7e65dce860e6" class="bulleted-list"><li style="list-style-type:disc"><strong>Impact:</strong> Increases memory overhead, particularly in resource-constrained environments.</li></ul></li></ol><h3 id="f731b71d-a2ee-4672-b01f-d5a84ce152e1" class="">Applications of Single Linked List:</h3><p id="b5df08fc-366b-405f-8eb7-b2ffc77f6ab2" class="">1. Dynamic Memory Allocation</p><p id="31f4ff68-56ad-4912-b829-16730dfd8db5" class="">2. Implementation of Stacks</p><p id="b17b610b-5d96-4da2-a775-a04374931d78" class="">3. Implementation of Queues</p><p id="d5d6979e-cf75-4cee-ab8c-8afe59048aec" class="">4. Traversal and Search Operations</p><p id="c4d61b99-7d3a-4e27-b1c7-4a4fe7596c29" class="">5. Undo Mechanisms</p><p id="1706216b-a190-4136-96dd-ab2507e23aa2" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
