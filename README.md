@@ -8,7 +8,7 @@ This repository is your comprehensive guide to mastering Data Structures and Alg
 ## Links For Notes
 
 1. [Complexity](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Complexity)
-2. [Recursion](#recursion)
+2. [Recursion](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Recursion)
 3. [Sorting and Searching](#sorting-and-searching)
 4. [Linked Lists](#linked-lists)
 5. [Stacks](https://vigneshvaranasi.github.io/DSA_Using_C/Notes/Stack)
