@@ -8,9 +8,9 @@ int partition(int a[], int low, int high)
 
     while (i <= j)
     {
-        while (a[i] <= pivot)
+        while (a[i] <= pivot && i<=j)
             i++;
-        while (a[j] > pivot)
+        while (a[j] > pivot && i<=j)
             j--;
         if (i < j)
         {
