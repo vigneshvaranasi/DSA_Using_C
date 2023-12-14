@@ -3,10 +3,12 @@
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
 }
 * {
 	box-sizing: border-box;
 	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
 }
 
 html,
@@ -19,6 +21,9 @@ body {
 		margin: 2em auto;
 		max-width: 900px;
 		color: rgb(55, 53, 47);
+		/* For Dark Mode */		
+/* 		color: rgb(255, 255, 255);
+		background-color: #000; */
 	}
 }
 
