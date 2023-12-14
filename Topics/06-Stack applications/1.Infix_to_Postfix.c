@@ -7,7 +7,7 @@
 // Function to check if a character is an operator
 int isOperator(char ch)
 {
-    return (ch == '+' || ch == '-' || ch == '*' || ch == '/');
+    return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^');
 }
 
 // Function to get the precedence of an operator
@@ -17,6 +17,8 @@ int getPrecedence(char op)
         return 1;
     else if (op == '*' || op == '/')
         return 2;
+    else if (op == '^')
+        return 3;
     return 0; // for non-operators
 }
 
