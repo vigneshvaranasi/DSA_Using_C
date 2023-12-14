@@ -1,3 +1,8 @@
 {
-    "cmake.sourceDirectory": "/workspaces/DSA"
+    "cmake.sourceDirectory": "/workspaces/DSA",
+    "files.associations": {
+        "*.C": "c",
+        "*.c": "c",
+        "stdio.h": "c"
+    }
 }
