@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-int minmax(int a[], int low, int high, int &min, int &max) {
+void minmax(int a[], int low, int high, int &min, int &max) {
     int mid, min1, max1;
     if (low == high) {
         min = a[low];
