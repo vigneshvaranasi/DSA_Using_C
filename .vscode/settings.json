@@ -1,9 +1,0 @@
-{
-    "cmake.sourceDirectory": "/workspaces/DSA",
-    "files.associations": {
-        "*.C": "c",
-        "*.c": "c",
-        "stdio.h": "c"
-    },
-    "liveServer.settings.port": 5501
-}
